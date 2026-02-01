@@ -1,0 +1,22 @@
+before-command: |
+  #!/bin/bash
+  set -e
+
+  # Enable non-interactive mode
+  export CI=true
+
+  # The package-lock.json is out of sync with package.json (lodash version mismatch)
+  # Using npm install to regenerate the lockfile and install correct dependencies
+  npm install
+preview-port: 3000
+service-previews:
+  - id: vite-dev-server
+    title: Vite Dev Server
+    description: Starts the Vite development server for the React application
+    command: |
+      #!/bin/bash
+      set -e
+
+      # Start the Vite development server
+      npm run dev -- --host 0.0.0.0
+    preview-port: 3000
